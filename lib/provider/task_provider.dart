@@ -51,7 +51,9 @@ class TaskProvider extends ChangeNotifier {
     'status': null
   };
 
-  void updateLocalTaskData() {}
+  void resetLocalTaskData() {
+    localTaskData['date'] = DateTime.now();
+  }
 
   void updatePriority(String value) {
     priority = value;

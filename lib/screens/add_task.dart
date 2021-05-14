@@ -64,6 +64,7 @@ class AddTaskScreen extends StatelessWidget {
           newTask.status = _taskProvider.task.status;
           _taskProvider.updateTask(newTask);
         }
+        _taskProvider.resetLocalTaskData();
         Navigator.pushAndRemoveUntil(
             context,
             CupertinoPageRoute(builder: (_) => TodoListScreen()),
@@ -87,14 +88,13 @@ class AddTaskScreen extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 40, vertical: 75),
             child: Consumer<TaskProvider>(
               builder: (context, taskState, child) {
+                debugPrint("add task consumer building");
                 if (taskState.modeStatus == Status.editMode) {
                   _titleController.text = taskState.task.title;
                   taskState.localTaskData['date'] = taskState.task.date;
                   _dateController.text =
                       _dateFormat.format(taskState.task.date);
                   _priority = taskState.task.priority;
-                } else {
-                  taskState.localTaskData['date'] = DateTime.now();
                 }
 
                 return Column(
